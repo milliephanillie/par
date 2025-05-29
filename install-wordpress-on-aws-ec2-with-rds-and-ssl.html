@@ -1,0 +1,330 @@
+<html>
+<head>
+    <title>Install WordPress/BuddyBoss on AWS EC2 Ubuntu Apache with RDS and SSL - WordPress Development Services</title>
+    <link rel="stylesheet" href="/main.css">
+    <link rel="icon" href="images/favicon.ico">
+    <link rel="canonical" href="https://philiparudy.com"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
+          rel="stylesheet">
+    
+
+    </script>
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({
+            'gtm.start':
+                new Date().getTime(), event: 'gtm.js'
+        });
+        var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src =
+            'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-5QL66R');</script>
+    <!-- End Google Tag Manager -->
+
+</head>
+<body class="single">
+<!-- Google Tag Manager (noscript) -->
+<noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5QL66R"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+<!-- End Google Tag Manager (noscript) -->
+<div class="site-wrapper">
+
+    <header class="main-nav">
+        <div class="container">
+            <div class="header-inner">
+                <div class="philip-logo">
+                    <a href="https://philiparudy.com">
+                        <div class="slogan"><p>Philip Rudy</p></div>
+                    </a>
+                </div>
+                <nav>
+                    <ul class="main-navigation" style="display: flex; align-items: center;">
+                        <li><a target="_blank" href="https://philiparudy.com/philip-rudy-WP-engineer.pdf">My Resume</a></li>
+                        <li class="has-children"><a href="#">WordPress Development Services</a>
+                            <ul class="submenu">
+                                <li><a href="figma-to-wordpress.html">Figma to WordPress</a></li>
+                                <li><a href="wordpress-plugin-audit.html">WordPress Plugin Audit</a></li>
+                            </ul>
+                        </li>
+                        <li><a target="_blank" href="https://medium.com/@philiprudy">Blog</a></li>
+<!--                            <li><a class="button show-desktop-only" style="color: white;" href="https://www.upwork.com/freelancers/~01ead979fce66af200">Hire Me</a></li>-->
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+
+    <section class="main-content">
+        <div class="container">
+            <div>
+
+                <h1 class="header-one">Install WordPress/BuddyBoss on AWS EC2 Ubuntu Apache with RDS and SSL</h1>
+                <h2>This guide walks you through setting up WordPress or BuddyBoss on an AWS EC2 instance with Ubuntu, Apache, RDS, and SSL using Certbot. We'll also cover domain setup via Route53.</h2>
+                <section class="meta">
+                    <span>Posted by <a href="https://philiparudy.com">Philip Rudy</a></span>
+                    <span>on 4/04/20525 at 07:07am EST</span>
+                </section>
+
+                <section class="categories">
+                    <span>WordPress Development</span>
+                    <span>WordPress Plugins</span>
+                </section>
+
+                <article>
+
+                    <p>When setting up a powerful platform like BuddyBoss, using shared hosting is one of the most common mistakes people make. Shared hosting environments are often limited in memory, processing power, and PHP configuration options—none of which align well with BuddyBoss's demands. Because BuddyBoss powers dynamic communities, membership platforms, and real-time interactions, it requires dedicated resources and greater control over your server.
+                      
+                      <p>Shared servers like Kinsta, Cloudways, and WP Engine won't cut it when it comes to using BuddyBoss - and WP Engine doesn't even allow you to configure you php.ini settings - a crucial step of a performant and fast WordPress site.
+                      
+                      <p>By using AWS EC2 with RDS and SSL, you ensure your site has the performance, security, and scalability it needs to thrive.</p>
+                    
+                    <h3>1. Launch an EC2 Instance</h3>
+                    <ul>
+                      <li>Login to the AWS console and navigate to the EC2 dashboard.</li>
+                      <li>Create a new instance and select Ubuntu as the OS.</li>
+                      <li><strong>Important:</strong> Choose <code>t2.small</code> instead of <code>t2.micro</code> to prevent crashes while navigating the dashboard.</li>
+                      <li>Create a <code>.pem</code> key file for SSH access. Store it in an accessible folder on your local machine.</li>
+                      <li>Allow SSH, HTTP, and HTTPS traffic. These settings can be updated later in your security group.</li>
+                      <li>Optionally increase the storage to 30 GB.</li>
+                      <li>Click "Launch Instance" and proceed to the next step after your instance is running.</li>
+                    </ul>
+                    
+                    <h3>2. Add Your SSH Key</h3>
+                    <p>We'll need to set your SSH key on the EC2 instance before connecting locally:</p>
+                    <ul>
+                      <li>Ensure your PEM file is saved where you intend to SSH from (e.g., <code>./aws/keypairs</code> in WSL).</li>
+                      <li>If you haven't already, generate a public SSH key and save it to <code>~/.ssh/id_rsa.pub</code>.</li>
+                      <li>Use the EC2 "Connect" feature to access the built-in AWS shell.</li>
+                    </ul>
+                    
+                    <div class="otslr-container">
+                      <div class="otslr-code">
+                    vim ~/.ssh/authorized_keys
+                      </div>
+                      <button class="copy-btn" onclick="copyToClipboard()">Copy</button>
+                    </div>
+                    
+                    <p>Paste your local SSH public key on a new line after the existing one. Save and exit.</p>
+                    <p>You can now SSH into your EC2 instance from your local machine using the command shown under the "SSH client" tab on the EC2 dashboard.</p>
+                    
+                    <h3>3. Update Your Server</h3>
+                    
+                    <div class="otslr-container">
+                      <div class="otslr-code">
+                    sudo apt update -y
+                      </div>
+                      <button class="copy-btn" onclick="copyToClipboard()">Copy</button>
+                    </div>
+                    
+                    <h3>4. Install Apache</h3>
+                    
+                    <div class="otslr-container">
+                      <div class="otslr-code">
+                    sudo apt install libapache2-mod-php8.3
+                      </div>
+                      <button class="copy-btn" onclick="copyToClipboard()">Copy</button>
+                    </div>
+                    
+                    <h3>5. Install PHP & Extensions</h3>
+                    
+                    <div class="otslr-container">
+                      <div class="otslr-code">
+                    sudo apt install php libapache2-mod-php php-mysql php-redis
+                      </div>
+                      <button class="copy-btn" onclick="copyToClipboard()">Copy</button>
+                    </div>
+                    
+                    <div class="otslr-container">
+                      <div class="otslr-code">
+                    sudo apt install php-curl php-gd php-mbstring php-xml php-xmlrpc php-soap php-intl php-zip
+                      </div>
+                      <button class="copy-btn" onclick="copyToClipboard()">Copy</button>
+                    </div>
+                    
+                    <div class="otslr-container">
+                      <div class="otslr-code">
+                    sudo apt install php-mysql -y
+                      </div>
+                      <button class="copy-btn" onclick="copyToClipboard()">Copy</button>
+                    </div>
+                    
+                    
+                    <h3>7. Verify PHP</h3>
+                    <p>Check for your <code>php.ini</code> file and confirm your PHP version to ensure everything is properly installed.</p>
+                    
+                    
+                    <h2>Configure PHP for BuddyBoss & Install WordPress</h2>
+                    
+                    <p>BuddyBoss requires increased PHP settings to function properly. You can manually update your <code>php.ini</code> file, or use the following commands to update them automatically via <code>sed</code>.</p>
+                    
+                    <p>First, confirm your PHP version. Then update the values using this snippet:</p>
+                    
+                    <div class="otslr-container">
+                      <div class="otslr-code">
+                    PHP_INI="/etc/php/8.3/apache2/php.ini"
+                    
+                    sudo sed -i "s/^upload_max_filesize = .*/upload_max_filesize = 128M/" "$PHP_INI"
+                    sudo sed -i "s/^post_max_size = .*/post_max_size = 128M/" "$PHP_INI"
+                    sudo sed -i "s/^max_execution_time = .*/max_execution_time = 300/" "$PHP_INI"
+                    sudo sed -i "s/^max_input_time = .*/max_input_time = 300/" "$PHP_INI"
+                    sudo sed -i "s/^memory_limit = .*/memory_limit = 256M/" "$PHP_INI"
+                    
+                    sudo systemctl restart apache2
+                      </div>
+                      <button class="copy-btn" onclick="copyToClipboard()">Copy</button>
+                    </div>
+                    
+                    <h3>Download and Set Up WordPress</h3>
+                    
+                    <div class="otslr-container">
+                      <div class="otslr-code">
+                    wget -c http://wordpress.org/latest.tar.gz
+                    tar -xzvf latest.tar.gz
+                      </div>
+                      <button class="copy-btn" onclick="copyToClipboard()">Copy</button>
+                    </div>
+                    
+                    <p>Ensure both <code>ubuntu</code> and <code>www-data</code> users have appropriate ownership to avoid permission issues.</p>
+                    
+                    <div class="otslr-container">
+                      <div class="otslr-code">
+                    sudo usermod -aG www-data ubuntu
+                    
+                    sudo mkdir -p /var/www/wordpress
+                    sudo cp -R wordpress/* /var/www/wordpress
+                    
+                    sudo chown -R www-data:www-data /var/www/wordpress
+                    sudo find /var/www/wordpress -type d -exec chmod 2775 {} \;
+                    sudo find /var/www/wordpress -type f -exec chmod 664 {} \;
+                      </div>
+                      <button class="copy-btn" onclick="copyToClipboard()">Copy</button>
+                    </div>
+                    
+                    <h3>Set Up Your Domain in Route 53</h3>
+                    <ul>
+                      <li>You can point your domain's DNS from services like GoDaddy to Route53.</li>
+                      <li>For simplicity, buy the domain directly in Route53.</li>
+                      <li>If the domain is from a third-party provider, follow their guide to connect it to Route53.</li>
+                    </ul>
+                    
+                    <p>Before proceeding, verify your EC2 server is working by copying its public IP into your browser. You should see the default Apache page.</p>
+
+                    <img src="images/aws-ec2-apache-wordpress-success.png" alt= "AWS ec2 Apache Success" />
+                    
+                    <p>Next, in Route53:</p>
+                    <img src="images/aws-ec2-route53-a-record.png" alt= "AWS ec2 Route 53 A record" />
+                    <ul>
+                      <li>Set up a Hosted Zone for your domain.</li>
+                      <li>Create two A records: one for <code>yourdomain.com</code> and another for <code>www.yourdomain.com</code>, both pointing to your EC2 IP.</li>
+                    </ul>
+                    
+                    <h3>Set Up RDS</h3>
+                    <img src="images/aws-ec2-connect-rds.png" alt= "AWS ec2 connect RDS" />
+                    <ul>
+                      <li>Create a MariaDB instance using the free tier.</li>
+                      <li>Connect it to your EC2 instance.</li>
+                      <li>Choose a secure username and password—avoid defaults like <code>root</code>.</li>
+                      <li>Set an initial database name under Additional Configuration.</li>
+                    </ul>
+                    
+                    <p>Once created, use the RDS endpoint as your <code>DB_HOST</code> in <code>wp-config.php</code>. Use the credentials and DB name you set up.</p>
+                    
+                    <p>Generate your WordPress salts with:</p>
+                    
+                    <div class="otslr-container">
+                      <div class="otslr-code">
+                    curl -s https://api.wordpress.org/secret-key/1.1/salt/
+                      </div>
+                      <button class="copy-btn" onclick="copyToClipboard()">Copy</button>
+                    </div>
+                    
+                    <h3>Set Up Virtual Host & SSL</h3>
+                    
+                    <p>Here's a virtual host config for your domain (replace placeholders with your actual domain):</p>
+                    
+                    <div class="otslr-container">
+                      <div class="otslr-code">
+                    &lt;VirtualHost *:80&gt;
+                        ServerName yourdomain.com
+                        ServerAlias www.yourdomain.com
+                    
+                        DocumentRoot /var/www/wordpress
+                    
+                        &lt;Directory /var/www/wordpress&gt;
+                            Options Indexes FollowSymLinks
+                            AllowOverride All
+                            Require all granted
+                        &lt;/Directory&gt;
+                    
+                        ErrorLog ${APACHE_LOG_DIR}/yourdomain-error.log
+                        CustomLog ${APACHE_LOG_DIR}/yourdomain-access.log combined
+                    &lt;/VirtualHost&gt;
+                      </div>
+                      <button class="copy-btn" onclick="copyToClipboard()">Copy</button>
+                    </div>
+                    
+                    <p>Reload Apache:</p>
+                    
+                    <div class="otslr-container">
+                      <div class="otslr-code">
+                    sudo systemctl reload apache2
+                      </div>
+                      <button class="copy-btn" onclick="copyToClipboard()">Copy</button>
+                    </div>
+                    
+                    <h3>Install Certbot & Get SSL Certificate</h3>
+                    
+                    <div class="otslr-container">
+                      <div class="otslr-code">
+                    sudo apt update
+                    sudo apt install python3-certbot-apache -y
+                      </div>
+                      <button class="copy-btn" onclick="copyToClipboard()">Copy</button>
+                    </div>
+                    
+                    <p>Request a certificate for your domain and its www version:</p>
+                    
+                    <div class="otslr-container">
+                      <div class="otslr-code">
+                    sudo certbot --apache -d yourdomain.com -d www.yourdomain.com
+                      </div>
+                      <button class="copy-btn" onclick="copyToClipboard()">Copy</button>
+                    </div>
+
+                    <p>At this point, your server, database, domain, and SSL should all be configured and ready. You can now open your browser, navigate to your domain, and you'll be greeted by the WordPress installation screen. From here, you can complete the setup, create your admin account, and begin building your BuddyBoss-powered site with confidence and full control over your infrastructure.</p>
+                    
+                </article>
+            </div>
+        </div>
+    </section>
+
+
+    <footer>
+      <div class="container">
+          <ul style="display: flex; justify-content: center; align-items: center; padding: 10px 0; list-style: none; margin: 0;">
+              <li style="margin: 0 10px;">
+                  <a href="https://philiparudy.com/" style="text-decoration: none; color: inherit;">Home</a>
+              </li>
+              <li style="margin: 0 10px;">
+                  <a href="https://philiparudy.com/privacy-policy.html" style="text-decoration: none; color: inherit;">Privacy Policy</a>
+              </li>
+              <li style="margin: 0 10px;">
+                  <a href="https://www.upwork.com/freelancers/~01ead979fce66af200" style="text-decoration: none; color: inherit;">Hire Me</a>
+              </li>
+          </ul>
+          <h5 class="copyright" style="text-align: center; margin-top: 10px;">&copy; COPYRIGHT 2023</h5>
+      </div>
+  </footer>
+</div>
+</body>
+</html>

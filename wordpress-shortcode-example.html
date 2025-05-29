@@ -1,0 +1,222 @@
+<html>
+<head>
+    <title>WordPress Shortcode Example: How to Create Your Own Shortcode</title>
+    <link rel="stylesheet" href="/main.css">
+    <link rel="icon" href="images/favicon.ico">
+    <link rel="canonical" href="https://philiparudy.com"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
+          rel="stylesheet">
+    <script type="application/ld+json">
+       
+    </script>
+
+    </script>
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({
+            'gtm.start':
+                new Date().getTime(), event: 'gtm.js'
+        });
+        var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src =
+            'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-5QL66R');</script>
+    <!-- End Google Tag Manager -->
+
+</head>
+<body class="single">
+<!-- Google Tag Manager (noscript) -->
+<noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5QL66R"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+<!-- End Google Tag Manager (noscript) -->
+<div class="site-wrapper">
+
+    <header class="main-nav">
+        <div class="container">
+            <div class="header-inner">
+                <div class="philip-logo">
+                    <a href="https://philiparudy.com">
+                        <div class="slogan"><p>Philip Rudy</p></div>
+                    </a>
+                </div>
+                <nav>
+                    <ul class="main-navigation" style="display: flex; align-items: center;">
+                        <li><a target="_blank" href="https://philiparudy.com/philip-rudy-WP-engineer.pdf">My Resume</a></li>
+                        <li class="has-children"><a href="#">WordPress Development Services</a>
+                            <ul class="submenu">
+                                <li><a href="figma-to-wordpress.html">Figma to WordPress</a></li>
+                                <li><a href="wordpress-plugin-audit.html">WordPress Plugin Audit</a></li>
+                            </ul>
+                        </li>
+                        <li><a target="_blank" href="https://medium.com/@philiprudy">Blog</a></li>
+<!--                            <li><a class="button show-desktop-only" style="color: white;" href="https://www.upwork.com/freelancers/~01ead979fce66af200">Hire Me</a></li>-->
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="main-content">
+        <div class="container">
+            <div>
+                <h1 class="header-one">WordPress Shortcode Example: How to Create Your Own Shortcode</h1>
+                <h2>A quick and easy code snippet to render and piece of content that you want using a WordPress shortcode.</h2>
+                <section class="meta">
+                    <span>Posted by <a href="https://philiparudy.com">Philip Rudy</a></span>
+                    <span>on 01/04/2025 at 10:26pm EST</span>
+                </section>
+
+                <section class="categories">
+                    <span>WordPress</span>
+                    <span>Code Examples</span>
+                </section>
+
+                <article>
+                    <h3>What is a shortcode in WordPress?</h3>
+
+                    <p>A shortcode is a placeholder that can be used anywhere on a WordPress site to display various components. It is a snippet of code wrapped in brackets that is used to render a specific element/module/ or template. It is formatted as followed:
+                    
+                    <div class="code">[shortcode_name attribute_name="value"]</div>
+                    
+                    <p>Many of the popular WordPress plugins and themes - such as <a href="https://www.gravityforms.com/blog/gravity-forms-shortcodes-ultimate-guide/">Gravity Froms</a>, <a href="https://memberpress.com/docs/available-shortcodes/">Memberpress</a>, Learndash, and BuddyBoss - all have their own collections of shortcodes that are available to use; making it easier for web administrators to display various components anywhere on the website.
+                    
+                        <p>For example, the Gravity Forms shortcode [gravityform id="1"] will display a Gravity Form with the ID one, and the Memberpress shortcode [mepr-account-info field="first_name"] would display the first name of a logged-in user.
+                    
+                            <p>This opens the door for non-coders to easily be able to create dynamic websites. WordPress has a number of native shortcodes that you can use such as [audio], [gallery], and [caption].
+                    
+                    <h3>Attributes</h3>
+                    
+                    <p>Attributes allow you to pass specific information, or variables, to your shortcode component. Attributes make your shortcode more dynamic, and allow for a greater deal of customization and unique content. In the Memberpress example above, we can see that the "field" attribute is used to manage what account information to display.
+                    
+                    <h3>Create Your Own Shortcode</h3>
+                    
+                    <p>For this wordpress shortcode example, we will be creating a simple placeholder that will display the email of a logged in user. This is useful in many different scenarious where you the user may want to see the email address that they are logged in with.
+                    
+                    <p>Later on we will extend this to accept a length attribute, as well as give it some basic options and styles.
+                    
+                    <p>Creating a shortcode invovles knowing a little bit of code, using PHP, and knowing your way around the theme files. The PHP code can be placed in your theme's functions.php file or in a plugin.
+                    
+                    <p>Here is the basic code snippet you need to create a static shortcode:
+                    
+                    <div class="otslr-container">
+                        <div class="otslr-code">
+                            add_shortcode('otslr_email', 'otslr_render_shortcode');
+                            function otslr_render_shortcode($atts, $content = null) {
+                                ob_start();
+                                echo "anyemail@gmail.com";
+                                return ob_get_clean();
+                            }
+                        </div>
+                        <button class="copy-btn" onclick="copyToClipboard()">Copy</button>
+                    </div>
+                    
+                    <h3>Here are a few things to keep in mind:</h3>
+                    
+                    <ul>
+                        <li>The name of your shortcode can be anything. Although not required it's good practice to prefix functions and shortcode names with 3-5 letters so as not to cause any conflicts with other plugins or themes. As you can see in the example above, we have used the prefix "otslr."</li>
+                        <li>Anything between anything between ob_start(); and return ob_get_clean(); is what will be rendered.</li>
+                        <li>the $atts, are optional but useful for making it even more dynamic</li>
+                    </ul>
+                    
+                    <p>Now lets make this a tad more dynamic. We want to set a character limit (because emails can sometimes be very long), and we want to use the email of the current logged in user.
+                    
+                    <p>To do this, we will use some native WordPress functions 
+
+                    <div class="otslr-container">
+                        <div class="otslr-code">
+                            add_shortcode('otslr_email', 'otslr_render_shortcode');
+                            function otslr_render_shortcode($atts, $content = null) {
+                                    $character_count = 28;
+                                    $user = wp_get_current_user();
+                            
+                                    if($user) {
+                                        $email = $user->user_email;
+                            
+                                        //if the email is longer than 28 characters we want to truncate it to have a ... at the end
+                                        $email = strlen($email) > $character_count ? substr($email, 0, $character_count) . '...' : $email;
+                                        ob_start();
+                            
+                                        echo $email;
+                            
+                                        return ob_get_clean();
+                                    }   
+                            }
+                        </div>
+                        <button class="copy-btn" onclick="copyToClipboard()">Copy</button>
+                    </div>
+                    
+                    <p>Now let's add some attributes. We want to be able to set whether to display a mailto: link or not.
+                        
+                    <div class="otslr-container">
+                        <div class="otslr-code">
+                            add_shortcode('otslr_email', 'otslr_render_shortcode');
+                            function otslr_render_shortcode($atts, $content = null) {
+                                    $character_count = 28;
+                                    $user = wp_get_current_user();
+                                    $current_user_email = $user->user_email;
+                            
+                                    $atts = shortcode_atts([
+                                        'email' => $current_user_email,
+                                        'include_link' => true,
+                                        'class' => 'otslr-email'
+                                    ], $atts);
+                            
+                                    $email = $atts['email'];
+                            
+                                    //if the email is longer than 28 characters we want to truncate it to have a ... at the end
+                                    $email = strlen($email) > $character_count ? substr($email, 0, $character_count) . '...' : $email;
+                                    ob_start();
+                            
+                                    if(true == $atts['include_link']) {
+                                        echo sprintf('<a href="mailto:%s"><span class="%s">%s</span></a>', $email, $atts['class'], $email);
+                                    } else {
+                                        echo sprintf('<span class="%s">%s</span>', $email, $atts['class'], $email)
+                                    }
+                            
+                            
+                                    return ob_get_clean();
+                            }
+                            <button class="copy-btn" onclick="copyToClipboard()">Copy</button>
+                        </div>
+                    </div>
+
+                    <h3>Video Tutorial</h3>
+
+                    Watch this quick tutorial for how to generate a WP shortcode using PHP:
+
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/Q9jSTawFtfs?si=TfNlCBYkeX5k_CQ_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </article>
+            </div>
+        </div>
+    </section>
+
+
+    <footer>
+        <div class="container">
+            <ul style="display: flex; justify-content: center; align-items: center; padding: 10px 0; list-style: none; margin: 0;">
+                <li style="margin: 0 10px;">
+                    <a href="https://philiparudy.com/" style="text-decoration: none; color: inherit;">Home</a>
+                </li>
+                <li style="margin: 0 10px;">
+                    <a href="https://philiparudy.com/privacy-policy.html" style="text-decoration: none; color: inherit;">Privacy Policy</a>
+                </li>
+                <li style="margin: 0 10px;">
+                    <a href="https://www.upwork.com/freelancers/~01ead979fce66af200" style="text-decoration: none; color: inherit;">Hire Me</a>
+                </li>
+            </ul>
+            <h5 class="copyright" style="text-align: center; margin-top: 10px;">&copy; COPYRIGHT 2023</h5>
+        </div>
+    </footer>
+    <script src="main.js" type="text/JavaScript"></script>
+</div>
+</body>
+</html>
