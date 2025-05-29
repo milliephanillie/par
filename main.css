@@ -1,9 +1,75 @@
 :root {
-    --black:  #111;
-    --brand-blue: #1700AB;
-    --brand-blue-alt: #0020AB;
-    --brand-blue-grey: #0056AB;
+  --black:  #111;
+  --brand-blue: #1700AB;
+  --brand-blue-alt: #0020AB;
+  --brand-blue-grey: #0056AB;
+
+  /* Brand Colors */
+  --primary:              #1700AB; /* Base brand blue */
+  --primary-dark:         #0020AB; /* Deeper brand blue */
+  --primary-light:        #4D3DFF; /* Lightened version of brand blue */
+
+  --secondary:            #0056AB; /* Blue-grey variant */
+  --secondary-dark:       #00408A;
+  --secondary-light:      #3B7DD8;
+
+  --accent:               #274472; /* Deep steel blue for contrast */
+  --accent-hover:         #1C355E;
+
+  /* Text Colors */
+  --text:                 #1B1F2A; /* Dark navy */
+  --text-soft:            #3A4152; /* Muted slate */
+  --text-muted:           #6D7686; /* Subtle blue-grey */
+
+  /* Backgrounds */
+  --background:           #F5F8FF; /* Subtle blue-tinted white */
+  --surface:              #FFFFFF;
+  --border:               #D6DBE9;
+
+  /* Buttons */
+  --button-bg:            var(--primary);
+  --button-bg-hover:      var(--primary-dark);
+  --button-text:          #FFFFFF;
+  --button-text-hover:    #FFFFFF;
+
+  --secondary-bg:         var(--secondary);
+  --secondary-bg-hover:   var(--secondary-dark);
+  --secondary-text:       #FFFFFF;
+
+  --dropdown-bg:          var(--surface);
+  --dropdown-hover:       var(--primary-light);
+  --dropdown-text:        var(--text-soft);
+  --dropdown-text-hover:  var(--text);
+
+  /* Rhythm */
+  --rhythm-unit:          7px;
+  --rhythm-x-unit:        5px;
+
+  /* Font Sizes */
+  --h1: 42px;
+  --h2: 35px;
+  --h3: 28px;
+  --h4: 21px;
+  --h5: 14px;
+  --h6: 14px;
+  --body: 14px;
+  --small: 12px;
+
+  /* Font Families */
+  --font-family: 'TT Commons Pro', sans-serif;
+  --font-family_header: 'Aeonik', sans-serif;
+
+  /* Font Weights */
+  --font-thin: 100;
+  --font-air: 200;
+  --font-light: 300;
+  --font-regular: 400;
+  --font-medium: 500;
+  --font-bold: 700;
+  --font-black: 900;
 }
+
+
 
 @font-face {
     font-family: 'Aeonik Air';
@@ -792,3 +858,54 @@ main {
 main .section-title h2 {
     margin-bottom: 20px;
 }
+
+.otslr-container {
+    position: relative;
+    display: inline-block;
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-family: 'Courier New', monospace;
+    font-size: 16px;
+    width: auto;
+    max-width: 600px;
+}
+
+.otslr-code {
+    background-color: #1e1e1e;
+    color: #f5f5f5;
+    padding: 10px;
+    border-radius: 5px;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    margin-bottom: 10px;
+}
+
+.copy-btn {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.copy-btn:hover {
+    background-color: #45a049;
+}
+
+.copy-btn:focus {
+    outline: none;
+}
+
+.copy-btn:active {
+    background-color: #3e8e41;
+}
+

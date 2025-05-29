@@ -1,0 +1,162 @@
+<html>
+<head>
+    <title>Install WordPress/BuddyBoss on AWS EC2 Ubuntu Apache with RDS and SSL - WordPress Development Services</title>
+    <link rel="stylesheet" href="/main.css">
+    <link rel="icon" href="images/favicon.ico">
+    <link rel="canonical" href="https://philiparudy.com"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
+          rel="stylesheet">
+    
+
+    </script>
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({
+            'gtm.start':
+                new Date().getTime(), event: 'gtm.js'
+        });
+        var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src =
+            'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-5QL66R');</script>
+    <!-- End Google Tag Manager -->
+
+</head>
+<body class="single">
+<!-- Google Tag Manager (noscript) -->
+<noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5QL66R"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+<!-- End Google Tag Manager (noscript) -->
+<div class="site-wrapper">
+
+    <header class="main-nav">
+        <div class="container">
+            <div class="header-inner">
+                <div class="philip-logo">
+                    <a href="https://philiparudy.com">
+                        <div class="slogan"><p>Philip Rudy</p></div>
+                    </a>
+                </div>
+                <nav>
+                    <ul class="main-navigation" style="display: flex; align-items: center;">
+                        <li><a target="_blank" href="https://philiparudy.com/philip-rudy-WP-engineer.pdf">My Resume</a></li>
+                        <li class="has-children"><a href="#">WordPress Development Services</a>
+                            <ul class="submenu">
+                                <li><a href="figma-to-wordpress.html">Figma to WordPress</a></li>
+                                <li><a href="wordpress-plugin-audit.html">WordPress Plugin Audit</a></li>
+                            </ul>
+                        </li>
+                        <li><a target="_blank" href="https://medium.com/@philiprudy">Blog</a></li>
+<!--                            <li><a class="button show-desktop-only" style="color: white;" href="https://www.upwork.com/freelancers/~01ead979fce66af200">Hire Me</a></li>-->
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+
+    <section class="main-content">
+        <div class="container">
+            <div>
+
+                <h1 class="header-one">Setting up an SMTP Mailer for Staging Sites on Cloudways</h1>
+                <h2>This guide assists developers in configuring an SMTP mailer for WordPress sites hosted on Cloudways. We'll be utilizing the WP Mail SMTP plugin by WPForms, coupled with the Gmail API as our chosen SMTP service.</h2>
+                <section class="meta">
+                    <span>Posted by <a href="https://philiparudy.com">Philip Rudy</a></span>
+                    <span>on 4/04/2025 at 7:06am EST</span>
+                </section>
+
+                <section class="categories">
+                    <span>WordPress Development</span>
+                    <span>WordPress Plugins</span>
+                </section>
+
+                <article>
+<p>This approach is particularly useful because most SMTP providers like SendGrid, Mailgun, and others require an authorized domain name, which makes staging URLs incompatible. Notably, Elastic Email on Cloudways also doesn't support default staging URLs, making the Gmail API a viable alternative for this setup.</p>
+
+<p><strong>Note:</strong> Make sure you're doing this in the same browser and Google account, as the plugin will redirect to your Google account and request permission during the process.</p>
+
+<h3>Part 1: Setup WP Mail SMTP Plugin</h3>
+
+<ul>
+  <li>Install the <strong>WP Mail SMTP</strong> plugin via WordPress.</li>
+  <li>Launch the Setup Wizard and choose the <strong>Google / Gmail</strong> option.</li>
+  <li>Continue to the credentials screen. Once there, leave the screen open and proceed to Part 2 to create your Gmail API credentials.</li>
+</ul>
+
+<h3>Part 2: Setting Up Gmail API Credentials</h3>
+
+<ol>
+  <li><strong>Enable Gmail API:</strong>
+    <ul>
+      <li>Go to the <a href="https://console.cloud.google.com/">Google Cloud Console</a>.</li>
+      <li>Click on <strong>APIs & Services</strong>, then search for and enable the Gmail API.</li>
+      <li>If already enabled, click <strong>Manage</strong>.</li>
+    </ul>
+  </li>
+
+  <li><strong>Create Gmail API Credentials:</strong>
+    <ul>
+      <li>Click the <strong>Create Credentials</strong> button at the top right.</li>
+      <li>Choose <strong>User Data</strong> for the data type.</li>
+      <li>Follow the steps to enter your App Name, support email, etc. These can be generic.</li>
+      <li>When prompted for OAuth Client ID:
+        <ul>
+          <li><strong>Authorized JavaScript origins:</strong> e.g., <code>https://wordpress-563276-2954319.cloudwaysapps.com</code></li>
+          <li><strong>Authorized redirect URIs:</strong> <code>https://connect.wpmailsmtp.com/google/</code></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+
+  <li><strong>Push App to Production:</strong>
+    <ul>
+      <li>Go to the <strong>OAuth Consent Screen</strong>.</li>
+      <li>Select <strong>Make External</strong> and set the app to <strong>In Production</strong>.</li>
+      <li>Failure to do this step may result in the plugin not authenticating properly.</li>
+    </ul>
+  </li>
+
+  <li><strong>Get Credentials for WP Mail SMTP:</strong>
+    <ul>
+      <li>From the left navigation, click <strong>Credentials</strong>.</li>
+      <li>Under <strong>OAuth 2.0 Client IDs</strong>, click your project name.</li>
+      <li>Here you'll find your <strong>Client ID</strong> and <strong>Client Secret</strong> for use in WP Mail SMTP.</li>
+    </ul>
+  </li>
+</ol>
+
+                </article>
+            </div>
+        </div>
+    </section>
+
+
+    <footer>
+      <div class="container">
+          <ul style="display: flex; justify-content: center; align-items: center; padding: 10px 0; list-style: none; margin: 0;">
+              <li style="margin: 0 10px;">
+                  <a href="https://philiparudy.com/" style="text-decoration: none; color: inherit;">Home</a>
+              </li>
+              <li style="margin: 0 10px;">
+                  <a href="https://philiparudy.com/privacy-policy.html" style="text-decoration: none; color: inherit;">Privacy Policy</a>
+              </li>
+              <li style="margin: 0 10px;">
+                  <a href="https://www.upwork.com/freelancers/~01ead979fce66af200" style="text-decoration: none; color: inherit;">Hire Me</a>
+              </li>
+          </ul>
+          <h5 class="copyright" style="text-align: center; margin-top: 10px;">&copy; COPYRIGHT 2023</h5>
+      </div>
+  </footer>
+</div>
+</body>
+</html>
